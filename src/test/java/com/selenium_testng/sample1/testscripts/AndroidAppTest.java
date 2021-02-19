@@ -31,17 +31,17 @@ public class AndroidAppTest {
 	public void simpleAndroidAppTest() throws MalformedURLException {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability("platformName", "Android");
-		capabilities.setCapability("deviceName", "Google Pixel 2");
-		capabilities.setCapability("platformVersion", "11");
+		capabilities.setCapability("deviceName", "Nokia 8");
+		capabilities.setCapability("platformVersion", "9");
 		capabilities.setCapability("app", "storage:filename=app-release.apk");
 		capabilities.setCapability("deviceOrientation", "portrait");
-		AndroidDriver driver = new AndroidDriver<WebElement>(new URL(System.getenv("GRID_URL")), capabilities);
+		AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL(System.getenv("GRID_URL")), capabilities);
 
+		MobileElement el3 = (MobileElement) driver.findElementByAccessibilityId("Start/Stop");
+		el3.click();
 		MobileElement seconds = (MobileElement) driver.findElementByAccessibilityId("1500");
 		System.out.println("--------" + seconds.getText());
 		assertThat(seconds.getText()).isEqualTo("1500");
-		MobileElement startStopButton = (MobileElement) driver.findElementByAccessibilityId("Start/Stop");
-		startStopButton.click();
 		driver.quit();
 	}
 }
