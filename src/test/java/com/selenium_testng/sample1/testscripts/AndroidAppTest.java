@@ -30,18 +30,21 @@ public class AndroidAppTest {
 
 	public void simpleAndroidAppTest() throws MalformedURLException {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability("platformName", "Android");
-		capabilities.setCapability("deviceName", "Nokia 8");
-		capabilities.setCapability("platformVersion", "9");
-		capabilities.setCapability("app", "storage:filename=app-release.apk");
+		capabilities.setCapability("platformName", System.getenv("PLATFORM_NAME"));
+		capabilities.setCapability("deviceName", System.getenv("DEVICE_NAME"));
+		capabilities.setCapability("platformVersion", System.getenv("PLATFORM_VERSION"));
+		capabilities.setCapability("app", System.getenv("APP_LOCATION"));
 		capabilities.setCapability("deviceOrientation", "portrait");
 		AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL(System.getenv("GRID_URL")), capabilities);
 
 		MobileElement el3 = (MobileElement) driver.findElementByAccessibilityId("Start/Stop");
 		el3.click();
-		MobileElement seconds = (MobileElement) driver.findElementByAccessibilityId("1500");
-		System.out.println("--------" + seconds.getText());
-		assertThat(seconds.getText()).isEqualTo("1500");
+		MobileElement secondsView = driver.findElementByXPath("//android.view.View[@content-desc='1500']");
+//		MobileElement seconds = (MobileElement) driver.findElementByAccessibilityId("1500");
+//		System.out.println("--------" + seconds.getText());
+//		assertThat(seconds.getText()).isEqualTo("1500");
+		System.out.println("--------" + secondsView.getText()); 
+		assertThat(secondsView.getText()).isNotEqualTo(1500);
 		driver.quit();
 	}
 }
