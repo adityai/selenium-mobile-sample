@@ -37,14 +37,12 @@ public class AndroidAppTest {
 		capabilities.setCapability("deviceOrientation", "portrait");
 		AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL(System.getenv("GRID_URL")), capabilities);
 
-		MobileElement el3 = (MobileElement) driver.findElementByAccessibilityId("Start/Stop");
-		el3.click();
-		MobileElement secondsView = driver.findElementByXPath("//android.view.View[@content-desc='1500']");
-//		MobileElement seconds = (MobileElement) driver.findElementByAccessibilityId("1500");
-//		System.out.println("--------" + seconds.getText());
-//		assertThat(seconds.getText()).isEqualTo("1500");
-		System.out.println("--------" + secondsView.getText()); 
-		assertThat(secondsView.getText()).isNotEqualTo(1500);
+		MobileElement loginButton = (MobileElement) driver.findElementById("com.blueshieldca.npe:id/btnLogin");
+		loginButton.click();
+		MobileElement el2 = (MobileElement) driver.findElementById("com.blueshieldca.npe:id/login_username_txt");
+		el2.sendKeys("tester");
+		MobileElement el3 = (MobileElement) driver.findElementById("com.blueshieldca.npe:id/login_password_txt");
+		el3.sendKeys("tester");
 		driver.quit();
 	}
 }
